@@ -1,0 +1,183 @@
+/* UI_FIX */
+/*************************************/
+
+/*HOMEPAGE*/
+/*************************************/
+/* Remove 'switch to standard theme' link for mobile devices on Moodle */
+#theme_switch_link {
+    display: none;
+}
+
+/* 隐藏首页底部的新课程空白 */
+body.pagelayout-frontpage #page.drawers .main-inner {
+    margin-top: 0;
+    display: none;
+}
+/* Login page */
+/* Fixed bottom position for site description on login page */
+.pagelayout-login.loginright .login-description-container {
+    bottom: 0;
+    background: linear-gradient(#fff0, #000000b8);
+}
+
+.pagelayout-login.loginright .login-description {
+    position: absolute;
+    bottom: 10%;
+    padding-right: 5rem;
+}
+/*ENROLMENT PAGE*/
+/*************************************/
+
+/*解决课程注册页面的视频显示尺寸*/
+/* Default styles for screens larger than 1200px (laptops and desktops) */
+#page-enrol-index .enrollment-sections .video-container .videoframe {
+    min-height: 450px;
+}
+
+/* Media Query for iPads (768px to 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    #page-enrol-index .enrollment-sections .video-container .videoframe {
+        min-height: 240px; /* Adjust the height for iPads */
+    }
+}
+
+/* Media Query for iPhones (up to 767px) */
+@media (max-width: 767px) {
+    #page-enrol-index .enrollment-sections .video-container .videoframe {
+        min-height: 200px; /* Adjust the height for iPhones */
+    }
+}
+
+#page-enrol-index .enrollment-sections .pricing-section {
+    padding-bottom: 40px;
+}
+
+/* REMUIFORMAT */
+/**********************************************************/
+/*TBD*/
+
+/* hide section number in card layout in the remuiformat */
+body#page-course-view-remuiformat
+    .remui-format-card.single-section-format
+    .sections
+    .section
+    .section-details
+    .general-single-card
+    .header-progresbar-wrapper
+    .section-title
+    span.sno {
+    display: none !important;
+}
+
+/* course card style fix height */
+
+body#page-course-view-remuiformat .remui-format-card.all-section-format .section .single-card {
+    min-height: 300px;
+    height: 100%;
+    width: 100%;
+    background-position: center !important;
+}
+
+/* PLUGINS */
+/**********************************************************/
+/* Glossary */
+/* reduce random glossary entry font size */
+.block_glossary_random h3 {
+    font-size: 1.1rem;
+}
+
+/* stash styles */
+.block_stash h5 {
+    margin-bottom: 1rem;
+    border-width: 0;
+    border-bottom-width: 0px;
+    border-bottom-width: 1px;
+    border-style: solid;
+    border-color: #e5e7eb;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0em;
+    color: #4b5563;
+    padding-bottom: 10px;
+}
+
+.block_stash .h5 {
+    font-size: 0.75rem;
+    color: #4b5563;
+}
+.block_stash li {
+    font-size: 0.8rem;
+}
+
+.edw-stats-wrapper {
+    border-radius: 8px;
+}
+
+/* Multiblock
+/* fix style conflict for block_xp within multiblock */
+.multiblock .block_xp .block_xp-level {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.multiblock .block_xp .block_xp-heading {
+    margin-bottom: 1rem;
+    border-width: 0;
+    border-bottom-width: 1px;
+    border-style: solid;
+    border-color: #e5e7eb;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0em;
+    color: #4b5563;
+}
+
+.multiblock .block_xp nav {
+    text-align: center;
+    align-content: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    border-width: 0;
+    border-top-width: 1px;
+    border-style: solid;
+    border-color: #e5e7eb;
+}
+
+.multiblock .block_xp nav .nav-button {
+    flex: 1 1 0%;
+    align-self: auto;
+    text-decoration: none;
+    color: #333;
+    font-size: 80%;
+    padding: 5px 5px 0;
+}
+
+.multiblock .block_xp nav .nav-button .icon {
+    margin: 0;
+    padding: 0;
+}
+
+/* modify multiblock nav tab background color */
+.multiblock .nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    color: #ffffff;
+    background-color: #3a53b9 !important;
+}
+
+.multiblock.multiblock-accordion a.btn.btn-link {
+    background-color: transparent;
+}
+
+.multiblock .nav-link {
+    padding: 0.5rem 2.5rem;
+}
+
+/*Misc.*/
+/**********************************************************/
+/* hide license alert message'*/
+.alert.text-center.license-notice.alert-dismissible.site-announcement.mb-0.alert-danger {
+    display: none;
+}

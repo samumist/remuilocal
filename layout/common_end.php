@@ -87,7 +87,7 @@ if (\theme_remui\toolbox::get_setting('enablequickmenu') && isloggedin()) {
 
 }
 
-$templatecontext['statloader'] = $CFG->wwwroot.'/theme/remui/pix/statloader.gif';
+$templatecontext['siteinnerloader'] = $CFG->wwwroot.'/theme/remui/pix/siteinnerloader.svg';
 // Add a block floating button
 $templatecontext['addblockfloatmenu'] = \theme_remui\utility::addblockfloatmenu();
 
@@ -125,11 +125,16 @@ foreach ($PAGE->blocks->get_regions() as $region) {
     }
     $blockregions[] = $region;
 }
-// Important  code used at multiple places.
-$PAGE->requires->data_for_js('availableblockregions', $blockregions);
-// Used in add a block modal pagelayout modals.
-$PAGE->requires->data_for_js('regionsnamearray', $regionnamearray);
-$PAGE->requires->js_call_amd('theme_remui/blockmovehandler', 'init');
+if ($PAGE->user_is_editing()) {
+
+    // Important  code used at multiple places.
+    $PAGE->requires->data_for_js('availableblockregions', $blockregions);
+
+    // Used in add a block modal pagelayout modals.
+    $PAGE->requires->data_for_js('regionsnamearray', $regionnamearray);
+
+    $PAGE->requires->js_call_amd('theme_remui/blockmovehandler', 'init');
+}
 
 // Edwiser navbar layout.
 $templatecontext['navlayout'] = \theme_remui\toolbox::get_setting('header-primary-layout-desktop');

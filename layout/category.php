@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once("{$CFG->dirroot}/theme/{$PAGE->theme->name}/layout/common.php");
+require_once("{$CFG->dirroot}/theme/remui/layout/common.php");
 
 use theme_remui\utility;
 
@@ -35,27 +35,25 @@ $filterdata = \theme_remui_coursehandler::get_course_filters_data();
 $templatecontext['categories'] = $filterdata['catdata'];
 $templatecontext['searchhtml'] = $filterdata['searchhtml'];
 
-if (\theme_remui\toolbox::get_setting('enablenewcoursecards')) {
-    $templatecontext['latest_card'] = true;
-}
 
 $categoryid = 'all';
 $categoryid = optional_param('categoryid', $categoryid, PARAM_RAW);
 
-if ($categoryid != 'all') {
-    if (core_course_category::get($categoryid, IGNORE_MISSING) == null) {
+$courserenderer = $PAGE->get_renderer('core', 'course');
+
+if ($categoryid !== 'all') {
+    $coursecat = core_course_category::get($categoryid, IGNORE_MISSING);
+    if ($coursecat) {
+        $chelper = new coursecat_helper();
+        $description = $chelper->get_category_formatted_description($coursecat);
+        if ($description) {
+            $templatecontext['categorydesciption'] = format_text($description, FORMAT_HTML, ['noclean' => true]);
+        }
+    } else {
         $categoryid = 'all';
     }
 }
 
-$courserenderer = $PAGE->get_renderer('core', 'course');
-if ($categoryid != "all") {
-    $coursecat = core_course_category::get($categoryid);
-    $chelper = new coursecat_helper();
-    if ($description = $chelper->get_category_formatted_description($coursecat)) {
-        $templatecontext['categorydesciption'] = $description;
-    }
-}
 $templatecontext['coursearchivefiltermenumorebutton'] = $courserenderer->get_morebutton_pagetitle($categoryid);
 $templatecontext['defaultcat'] = $categoryid;
 // Must be called before rendering the template.
@@ -76,11 +74,7 @@ if(count($templatecontext['viewoptions']) == 1){
     $templatecontext['hideavailableview'] = true;
 }
 
-
-$categories = $DB->get_records('course_categories',array('visible'=>1));
-if(utility::check_user_admin_cap()){
-    $categories = $DB->get_records('course_categories');
-}
+$categories = utility::get_categories_list();
 $caegoryfilterhtml = utility::generateCategoryStructure($categories);
 $templatecontext['caegoryfilterhtml'] = $caegoryfilterhtml;
 echo $OUTPUT->render_from_template('theme_remui/coursearchive', $templatecontext);

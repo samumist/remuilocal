@@ -181,6 +181,7 @@ if (user_can_view_profile($userobject, null, $context)) {
     $templatecontext['user']->editmodecity  = $templatecontext['user']->city;
     $templatecontext['user']->editmodeemail = $templatecontext['user']->email;
     $templatecontext['user']->editmodedescription = $templatecontext['user']->description;
+    $templatecontext['user']->department = format_text($templatecontext['user']->department, FORMAT_HTML);
     if (isset($identityfields['address']) && $user->address) {
         $templatecontext['user']->location .= format_text($user->address, FORMAT_HTML);
     }
@@ -190,7 +191,7 @@ if (user_can_view_profile($userobject, null, $context)) {
 
     $templatecontext['user']->instidept = "";
     if (isset($identityfields['department']) && $user->department) {
-        $templatecontext['user']->instidept .= $user->department;
+        $templatecontext['user']->instidept .= format_text($user->department, FORMAT_HTML);
     }
 
     if (isset($identityfields['institution']) && $user->institution) {

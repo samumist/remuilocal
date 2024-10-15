@@ -25,6 +25,10 @@ defined('MOODLE_INTERNAL') || die();
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 
+// Adding a version based class on the body which will be used for adding version based css
+$extraclasses[] = 'edw-m'.get_moodle_release_version_branch();
+$bodyattributes = $OUTPUT->body_attributes($extraclasses);
+
 if (get_config('theme_remui', 'pagewidth') == 'fullwidth') {
     $bodyattributes = str_replace("limitedwidth", "", $bodyattributes);
 }
@@ -139,6 +143,15 @@ if ($PAGE->user_is_editing()) {
 // Edwiser navbar layout.
 $templatecontext['navlayout'] = \theme_remui\toolbox::get_setting('header-primary-layout-desktop');
 
+// If this is true then new user preferences will be applied else old user(M.util based)  preferences  will be applied.
+$templatecontext['applylatestuserpref'] = apply_latest_user_pref();
+
+
+if(get_moodle_release_version_branch() > '402'){
+    $templatecontext['applylatestdrawerjs'] = true;
+}
+
+$PAGE->requires->data_for_js('applylatestuserpref', $templatecontext['applylatestuserpref']);
 $templatecontext['bodyattributes'] = $bodyattributes;
 
 $PAGE->requires->strings_for_js(array(
